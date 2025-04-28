@@ -1,5 +1,4 @@
 {% set version = "12.13.0" %}
-{% set sha256 = "300bbd1d6bc50b8988b3dda29d6d627574a4f3e25a7e00a6986da5d3965f679a" %}
 
 package:
   name: azure-storage-blobs-cpp
@@ -7,7 +6,7 @@ package:
 
 source:
   url: https://github.com/Azure/azure-sdk-for-cpp/archive/refs/tags/azure-storage-blobs_{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 300bbd1d6bc50b8988b3dda29d6d627574a4f3e25a7e00a6986da5d3965f679a
 
 build:
   number: 1
@@ -18,13 +17,11 @@ build:
 requirements:
   build:
     - {{ compiler("cxx") }}
-    - {{ stdlib("c") }}
     - cmake
     - ninja
   host:
-    # azure-core-cpp and azure-storage-common-cpp are pinned in conda-forge-pinning-feedstock
-    - azure-core-cpp
-    - azure-storage-common-cpp
+    - azure-core-cpp 1.14
+    - azure-storage-common-cpp 12.10
 
 test:
   requires:
