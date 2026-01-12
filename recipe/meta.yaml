@@ -1,4 +1,4 @@
-{% set version = "12.13.0" %}
+{% set version = "12.15.0" %}
 
 package:
   name: azure-storage-blobs-cpp
@@ -6,10 +6,10 @@ package:
 
 source:
   url: https://github.com/Azure/azure-sdk-for-cpp/archive/refs/tags/azure-storage-blobs_{{ version }}.tar.gz
-  sha256: 300bbd1d6bc50b8988b3dda29d6d627574a4f3e25a7e00a6986da5d3965f679a
+  sha256: 00040ef20d25918eafd5e89e8c237d5a647810efb1466677fbe0cbb766213f7c
 
 build:
-  number: 1
+  number: 0
   run_exports:
     - {{ pin_subpackage("azure-storage-blobs-cpp", max_pin="x.x.x") }}
 
@@ -17,11 +17,12 @@ build:
 requirements:
   build:
     - {{ compiler("cxx") }}
+    - {{ stdlib("c") }}
     - cmake
     - ninja
   host:
-    - azure-core-cpp 1.14
-    - azure-storage-common-cpp 12.10
+    - azure-core-cpp 1.16.1
+    - azure-storage-common-cpp 12.11.0
 
 test:
   requires:
@@ -38,18 +39,53 @@ test:
 
     # headers
     - test -f ${PREFIX}/include/azure/storage/blobs/append_blob_client.hpp          # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs.hpp                             # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_batch.hpp                  # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_client.hpp                 # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_container_client.hpp       # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_lease_client.hpp           # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_options.hpp                # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_responses.hpp              # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_sas_builder.hpp            # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/blob_service_client.hpp         # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/block_blob_client.hpp           # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/deferred_response.hpp           # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/dll_import_export.hpp           # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/page_blob_client.hpp            # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/rest_client.hpp                 # [unix]
+    - test -f ${PREFIX}/include/azure/storage/blobs/rtti.hpp                        # [unix]
     - if not exist %LIBRARY_INC%\azure\storage\blobs\append_blob_client.hpp exit 1  # [win]
-
+    - if not exist %LIBRARY_INC%\azure\storage\blobs.hpp exit 1                     # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_batch.hpp exit 1          # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_client.hpp exit 1         # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_container_client.hpp exit 1  # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_lease_client.hpp exit 1   # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_options.hpp exit 1        # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_responses.hpp exit 1      # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_sas_builder.hpp exit 1    # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\blob_service_client.hpp exit 1  # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\block_blob_client.hpp exit 1    # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\deferred_response.hpp exit 1   # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\dll_import_export.hpp exit 1   # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\page_blob_client.hpp exit 1    # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\rest_client.hpp exit 1         # [win]
+    - if not exist %LIBRARY_INC%\azure\storage\blobs\rtti.hpp exit 1                # [win]
     # CMake metadata
-    - test -f ${PREFIX}/share/azure-storage-blobs-cpp/azure-storage-blobs-cppTargets.cmake                     # [unix]
-    - if not exist %LIBRARY_PREFIX%\share\azure-storage-blobs-cpp\azure-storage-blobs-cppTargets.cmake exit 1  # [win]
+    - test -f ${PREFIX}/share/azure-storage-blobs-cpp/azure-storage-blobs-cppTargets.cmake                      # [unix]
+    - test -f ${PREFIX}/share/azure-storage-blobs-cpp/azure-storage-blobs-cppConfig.cmake                       # [unix]
+    - test -f ${PREFIX}/share/azure-storage-blobs-cpp/azure-storage-blobs-cppConfigVersion.cmake                # [unix]
+    - test -f ${PREFIX}/share/azure-storage-blobs-cpp/azure-storage-blobs-cppTargets-release.cmake              # [unix]
+    - if not exist %LIBRARY_PREFIX%\share\azure-storage-blobs-cpp\azure-storage-blobs-cppTargets.cmake exit 1           # [win]
+    - if not exist %LIBRARY_PREFIX%\share/azure-storage-blobs-cpp\azure-storage-blobs-cppConfig.cmake exit 1            # [win]
+    - if not exist %LIBRARY_PREFIX%\share/azure-storage-blobs-cpp\azure-storage-blobs-cppConfigVersion.cmake exit 1     # [win]
+    - if not exist %LIBRARY_PREFIX%\share/azure-storage-blobs-cpp\azure-storage-blobs-cppTargets-release.cmake exit 1   # [win]
 
     # CMake find_package()
     - cmake $CMAKE_ARGS -G Ninja -S $RECIPE_DIR -B test-find-package    # [unix]
     - cmake %CMAKE_ARGS% -G Ninja -S %RECIPE_DIR% -B test-find-package  # [win]
 
 about:
-  home: https://github.com/Azure/azure-sdk-for-cpp/
+  home: https://github.com/Azure/azure-sdk-for-cpp
   summary: Azure Storage Blobs Client Library for C++
   description: >-
     Azure Blob storage is Microsoft's object storage solution for the cloud. Blob storage is optimized for storing massive amounts of unstructured data. Unstructured data is data that does not adhere to a particular data model or definition, such as text or binary data.
@@ -58,8 +94,8 @@ about:
   license_file:
     - LICENSE.txt
     - sdk/storage/azure-storage-blobs/NOTICE.txt
-  doc_url: https://azure.github.io/azure-sdk-for-cpp/
-  dev_url: https://github.com/Azure/azure-sdk-for-cpp/tree/main/sdk/storage/azure-storage-blobs/
+  doc_url: https://azure.github.io/azure-sdk-for-cpp
+  dev_url: https://github.com/Azure/azure-sdk-for-cpp/tree/main/sdk/storage/azure-storage-blobs
 
 extra:
   recipe-maintainers:
