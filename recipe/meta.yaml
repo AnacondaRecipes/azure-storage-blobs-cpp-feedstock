@@ -1,8 +1,9 @@
+{% set name = "azure-storage-blobs-cpp" %}
 {% set version = "12.18.0" %}
 
 # https://github.com/Azure/azure-sdk-for-cpp/blob/main/sdk/storage/azure-storage-blobs/vcpkg/vcpkg.json
 package:
-  name: azure-storage-blobs-cpp
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -16,12 +17,11 @@ build:
 
 requirements:
   build:
-    - {{ compiler("cxx") }}
     - {{ stdlib("c") }}
+    - {{ compiler("cxx") }}
     - cmake
     - ninja
   host:
-    - azure-core-cpp 1.16.1
     - azure-storage-common-cpp 12.11.0
 
 test:
