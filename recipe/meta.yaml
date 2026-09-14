@@ -22,8 +22,8 @@ requirements:
     - cmake
     - ninja
   host:
-    - azure-core-cpp 1.16.1
-    - azure-storage-common-cpp 12.11.0
+    - azure-core-cpp {{ azure_core_cpp }}
+    - azure-storage-common-cpp {{ azure_storage_common_cpp }}
 
 test:
   requires:
