@@ -85,7 +85,7 @@ test:
 
 about:
   home: https://github.com/Azure/azure-sdk-for-cpp
-  summary: Azure Storage Blobs Client Library for C++
+  summary: Azure Storage Blobs Client Library for C++.
   description: >-
     Azure Blob storage is Microsoft's object storage solution for the cloud. Blob storage is optimized for storing massive amounts of unstructured data. Unstructured data is data that does not adhere to a particular data model or definition, such as text or binary data.
   license: MIT
