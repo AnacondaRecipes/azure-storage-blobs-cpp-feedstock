@@ -23,6 +23,7 @@ requirements:
     - ninja
   host:
     # change for exact pin for mcbc once it would be available
+    - azure-core-cpp 1.16.3
     - azure-storage-common-cpp >=12.14.0
 
 test:
