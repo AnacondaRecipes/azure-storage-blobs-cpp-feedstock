@@ -1,4 +1,3 @@
-c_compiler_version:   # [osx]
-  - "22"              # [osx]
+# Need to prvent environment resolving error for OSX
 cxx_compiler_version: # [osx]
   - "22"              # [osx]
